@@ -7,6 +7,10 @@
 *.o
 *.obj
 
+#visualStudioの設定ファイル
+.vs/
+*.vsix
+
 # Precompiled Headers
 *.gch
 *.pch
