@@ -30,6 +30,9 @@
     <ClInclude Include="shader.h">
       <Filter>directx</Filter>
     </ClInclude>
+    <ClInclude Include="root_signature.h">
+      <Filter>directx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="window.cpp">
@@ -42,6 +45,9 @@
       <Filter>directx</Filter>
     </ClCompile>
     <ClCompile Include="shader.cpp">
+      <Filter>directx</Filter>
+    </ClCompile>
+    <ClCompile Include="root_signature.cpp">
       <Filter>directx</Filter>
     </ClCompile>
   </ItemGroup>

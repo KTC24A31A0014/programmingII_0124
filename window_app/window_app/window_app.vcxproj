@@ -133,12 +133,14 @@
   <ItemGroup>
     <ClInclude Include="device.h" />
     <ClInclude Include="DXGI.h" />
+    <ClInclude Include="root_signature.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="device.cpp" />
     <ClCompile Include="DXGI.cpp" />
+    <ClCompile Include="root_signature.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
