@@ -33,6 +33,31 @@
     <ClInclude Include="root_signature.h">
       <Filter>directx</Filter>
     </ClInclude>
+    <ClInclude Include="util.h" />
+    <ClInclude Include="input.h">
+      <Filter>window</Filter>
+    </ClInclude>
+    <ClInclude Include="fence.h">
+      <Filter>directx</Filter>
+    </ClInclude>
+    <ClInclude Include="swap_chain.h">
+      <Filter>directx</Filter>
+    </ClInclude>
+    <ClInclude Include="command_queue.h">
+      <Filter>directx</Filter>
+    </ClInclude>
+    <ClInclude Include="command_allocator.h">
+      <Filter>directx</Filter>
+    </ClInclude>
+    <ClInclude Include="command_list.h">
+      <Filter>directx</Filter>
+    </ClInclude>
+    <ClInclude Include="constant_buffer.h">
+      <Filter>directx</Filter>
+    </ClInclude>
+    <ClInclude Include="descriptor_heap.h">
+      <Filter>directx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="window.cpp">
@@ -48,6 +73,30 @@
       <Filter>directx</Filter>
     </ClCompile>
     <ClCompile Include="root_signature.cpp">
+      <Filter>directx</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>window</Filter>
+    </ClCompile>
+    <ClCompile Include="fence.cpp">
+      <Filter>directx</Filter>
+    </ClCompile>
+    <ClCompile Include="swap_chain.cpp">
+      <Filter>directx</Filter>
+    </ClCompile>
+    <ClCompile Include="command_queue.cpp">
+      <Filter>directx</Filter>
+    </ClCompile>
+    <ClCompile Include="command_allocator.cpp">
+      <Filter>directx</Filter>
+    </ClCompile>
+    <ClCompile Include="command_list.cpp">
+      <Filter>directx</Filter>
+    </ClCompile>
+    <ClCompile Include="constant_buffer.cpp">
+      <Filter>directx</Filter>
+    </ClCompile>
+    <ClCompile Include="descriptor_heap.cpp">
       <Filter>directx</Filter>
     </ClCompile>
   </ItemGroup>
