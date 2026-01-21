@@ -1,10 +1,9 @@
-//DXGI §ŒäƒNƒ‰ƒX 
+//DXGI åˆ¶å¾¡ã‚¯ãƒ©ã‚¹ 
 #pragma once
 
 #include <d3d12.h>
 #include <dxgi1_4.h>
-
-using namespace std;
+#include <wrl/client.h>
 
 class DXGI final
 {
@@ -19,7 +18,7 @@ class DXGI final
 		[[nodiscard]] IDXGIAdapter1* displayAdapter() const noexcept;
 
 	private:
-		IDXGIFactory4* dxgiFactory_{};	//DXGI‚ðì¬‚·‚é‚Ó‚Ÿ‚­‚Æ‚è[
-		IDXGIAdapter1* dxgiAdapter_{};	//ƒfƒBƒXƒvƒŒƒCƒ‚[ƒhŽæ“¾—pƒAƒ_ƒvƒ^
+		Microsoft::WRL::ComPtr<IDXGIFactory4> dxgiFactory_{};	//DXGIã‚’ä½œæˆã™ã‚‹ãµããã¨ã‚Šãƒ¼
+		Microsoft::WRL::ComPtr<IDXGIAdapter1> dxgiAdapter_{};	//ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ãƒ¢ãƒ¼ãƒ‰å–å¾—ç”¨ã‚¢ãƒ€ãƒ—ã‚¿
 };
 

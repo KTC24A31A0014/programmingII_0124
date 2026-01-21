@@ -1,22 +1,20 @@
-//DXGI §ŒäƒNƒ‰ƒX
+//DXGI åˆ¶å¾¡ã‚¯ãƒ©ã‚¹
 
 #include "DXGI.h"
 #include <cassert>
-
-using namespace std;
 
 #pragma comment(lib, "dxgi.lib")
 
 DXGI::~DXGI()
 {
-	//DXGIƒtƒ@ƒNƒgƒŠ[‚Ì‰ğ•ú
+	//DXGIãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼ã®è§£æ”¾
 	if (dxgiFactory_)
 	{
 		dxgiFactory_->Release();
 		dxgiFactory_ = nullptr;
 	}
 
-	//ƒAƒ_ƒvƒ^‚Ì‰ğ•ú
+	//ã‚¢ãƒ€ãƒ—ã‚¿ã®è§£æ”¾
 	if (dxgiAdapter_)
 	{
 		dxgiAdapter_->Release();
@@ -27,8 +25,8 @@ DXGI::~DXGI()
 [[nodiscard]] bool DXGI::setDisplayAdapter() noexcept
 {
 	#if _DEBUG
-		//ƒfƒoƒbƒOƒŒƒCƒ„[‚ğƒIƒ“‚É
-		//‚±‚ê‚ğs‚¤‚±‚Æ‚ÅADirectX‚ÌƒGƒ‰[“à—e‚ğÚ×‚É’m‚é‚±‚Æ‚ª‚Å‚«‚é
+		//ãƒ‡ãƒãƒƒã‚°ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ã‚ªãƒ³ã«
+		//ã“ã‚Œã‚’è¡Œã†ã“ã¨ã§ã€DirectXã®ã‚¨ãƒ©ãƒ¼å†…å®¹ã‚’è©³ç´°ã«çŸ¥ã‚‹ã“ã¨ãŒã§ãã‚‹
 
 	ID3D12Debug* debug;
 	if (SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debug))))
@@ -37,7 +35,7 @@ DXGI::~DXGI()
 	}
 	#endif
 
-	//DXGIƒtƒ@ƒNƒgƒŠ[‚Ìì¬
+	//DXGIãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼ã®ä½œæˆ
 	{
 		UINT createFactoryFlags = 0;
 
@@ -48,18 +46,18 @@ DXGI::~DXGI()
 			const auto hr = CreateDXGIFactory2(createFactoryFlags, IID_PPV_ARGS(&dxgiFactory_));
 			if (FAILED(hr))
 			{
-				assert(false && "DXGIƒtƒ@ƒNƒgƒŠ[‚Ìì¬‚É¸”s");
+				assert(false && "DXGIãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼ã®ä½œæˆã«å¤±æ•—");
 				return false;
 			}
 	}
 
-	//ƒAƒ_ƒvƒ^‚Ìæ“¾
+	//ã‚¢ãƒ€ãƒ—ã‚¿ã®å–å¾—
 	{
-		//ƒAƒ_ƒvƒ^‚Ì—ñ‹“
+		//ã‚¢ãƒ€ãƒ—ã‚¿ã®åˆ—æŒ™
 		auto select = 0;
-		IDXGIAdapter1* dxgiAdapter{};
+		Microsoft::WRL::ComPtr<IDXGIAdapter1> dxgiAdapter{};
 
-		//“KØ‚ÈƒAƒ_ƒvƒ^‚ğ‘I‚Ô
+		//é©åˆ‡ãªã‚¢ãƒ€ãƒ—ã‚¿ã‚’é¸ã¶
 		while (dxgiFactory_->EnumAdapters1(select, &dxgiAdapter) != DXGI_ERROR_NOT_FOUND)
 		{
 			DXGI_ADAPTER_DESC1 desc{};
@@ -67,15 +65,15 @@ DXGI::~DXGI()
 
 			select++;
 
-			//ƒ\ƒtƒgƒEƒFƒAƒAƒ_ƒvƒ^‚ÍœŠO
+			//ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚¢ãƒ€ãƒ—ã‚¿ã¯é™¤å¤–
 			if (desc.Flags & DXGI_ADAPTER_FLAG_SOFTWARE)
 			{
 				dxgiAdapter->Release();
 				continue;
 			}
 
-			//Direct3D12‚ª“®‚©‚È‚¢ê‡‚àœŠO
-			if (FAILED(D3D12CreateDevice(dxgiAdapter, D3D_FEATURE_LEVEL_11_0, _uuidof(ID3D12Device), nullptr)))
+			//Direct3D12ãŒå‹•ã‹ãªã„å ´åˆã‚‚é™¤å¤–
+			if (FAILED(D3D12CreateDevice(dxgiAdapter.Get(), D3D_FEATURE_LEVEL_11_0, _uuidof(ID3D12Device), nullptr)))
 			{
 				dxgiAdapter->Release();
 				continue;
@@ -87,7 +85,7 @@ DXGI::~DXGI()
 
 		if (!dxgiAdapter_)
 		{
-			assert(false && "ƒAƒ_ƒvƒ^‚Ìæ“¾‚É¸”s");
+			assert(false && "ã‚¢ãƒ€ãƒ—ã‚¿ã®å–å¾—ã«å¤±æ•—");
 			return false;
 		}
 	}
@@ -100,18 +98,18 @@ DXGI::~DXGI()
 {
 	if (!dxgiFactory_)
 	{
-		assert(false && "DXGIƒtƒ@ƒNƒgƒŠ[‚ª–¢ì¬‚Å‚·");
+		assert(false && "DXGIãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼ãŒæœªä½œæˆã§ã™");
 	}
 
-	return dxgiFactory_;
+	return dxgiFactory_.Get();
 }
 
 [[nodiscard]] IDXGIAdapter1* DXGI::displayAdapter() const noexcept
 {
 	if (!dxgiAdapter_)
 	{
-		assert(false && "ƒfƒBƒXƒvƒŒƒCƒAƒ_ƒvƒ^[‚ª–¢ì¬‚Å‚·");
+		assert(false && "ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã‚¢ãƒ€ãƒ—ã‚¿ãƒ¼ãŒæœªä½œæˆã§ã™");
 	}
 
-	return dxgiAdapter_;
+	return dxgiAdapter_.Get();
 }

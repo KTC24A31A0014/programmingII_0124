@@ -3,10 +3,10 @@
 
 [[nodiscard]] bool root_signature::create() noexcept
 {
-	//•`‰æ‚É•K—v‚ÈƒŠƒ\[ƒX‚ğƒVƒF[ƒ_‚É“`‚¦‚é
+	//æç”»ã«å¿…è¦ãªãƒªã‚½ãƒ¼ã‚¹ã‚’ã‚·ã‚§ãƒ¼ãƒ€ã«ä¼ãˆã‚‹
 
-	//ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@ (ƒXƒƒbƒg b0)
-	//¡‰ñ‚Ìê‡‚ÍƒJƒƒ‰‚Ìƒrƒ…[s—ñ‚âË‰es—ñ‚ª“ü‚é‘z’è
+	//ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ (ã‚¹ãƒ­ãƒƒãƒˆ b0)
+	//ä»Šå›ã®å ´åˆã¯ã‚«ãƒ¡ãƒ©ã®ãƒ“ãƒ¥ãƒ¼è¡Œåˆ—ã‚„å°„å½±è¡Œåˆ—ãŒå…¥ã‚‹æƒ³å®š
 	D3D12_DESCRIPTOR_RANGE r0{};
 	r0.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_CBV;
 	r0.NumDescriptors = 1;
@@ -14,8 +14,8 @@
 	r0.RegisterSpace = 0;
 	r0.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
 
-	//ƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@i ƒXƒƒbƒg b1 j
-	//¡‰ñ‚Ìê‡‚Íƒ|ƒŠƒSƒ“‚Ìƒ[ƒ‹ƒhs—ñ‚âF‚ª“ü‚é‘z’è
+	//ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ï¼ˆ ã‚¹ãƒ­ãƒƒãƒˆ b1 ï¼‰
+	//ä»Šå›ã®å ´åˆã¯ãƒãƒªã‚´ãƒ³ã®ãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—ã‚„è‰²ãŒå…¥ã‚‹æƒ³å®š
 	D3D12_DESCRIPTOR_RANGE r1{};
 	r1.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_CBV;
 	r1.NumDescriptors = 1;
@@ -23,8 +23,58 @@
 	r1.RegisterSpace = 0;
 	r1.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
 
-	//ƒ‹[ƒgƒpƒ‰ƒ[ƒ^‚Ìİ’è
+	//ãƒ«ãƒ¼ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®è¨­å®š
 	constexpr auto paramNum = 2;
 	D3D12_ROOT_PARAMETER rootParameters[paramNum]{};
+	rootParameters[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+	rootParameters[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_VERTEX;	//é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ã®ã¿ã§åˆ©ç”¨ã™ã‚‹
+	rootParameters[0].DescriptorTable.NumDescriptorRanges = 1;
+	rootParameters[0].DescriptorTable.pDescriptorRanges = &r0;
+
+	rootParameters[1].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+	rootParameters[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;		//ã™ã¹ã¦ã®ã‚·ã‚§ãƒ¼ãƒ€ã§åˆ©ç”¨ã™ã‚‹
+	rootParameters[1].DescriptorTable.NumDescriptorRanges = 1;
+	rootParameters[1].DescriptorTable.pDescriptorRanges = &r1;
 	
+	//ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã®è¨­å®š
+	D3D12_ROOT_SIGNATURE_DESC rootSignatureDesc{};
+	rootSignatureDesc.NumParameters = paramNum;
+	rootSignatureDesc.pParameters = rootParameters;
+	rootSignatureDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
+
+	//ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã®ã‚·ãƒªã‚¢ãƒ©ã‚¤ã‚º
+	Microsoft::WRL::ComPtr<ID3DBlob> signature{};
+	Microsoft::WRL::ComPtr<ID3DBlob> error{};
+
+	auto res = D3D12SerializeRootSignature(&rootSignatureDesc, D3D_ROOT_SIGNATURE_VERSION_1, &signature, &error);
+
+	bool success = SUCCEEDED(res);
+	if (!success)
+	{
+		char* p = static_cast<char*>(error->GetBufferPointer());
+		assert(false && "ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã®ã‚·ãƒªã‚¢ãƒ©ã‚¤ã‚ºã«å¤±æ•—");
+	}
+	else
+	{
+		//ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã®ç”Ÿæˆ
+		res = device::instance().get()->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), IID_PPV_ARGS(&rootSignature_));
+
+		success &= SUCCEEDED(res);
+		if (!success)
+		{
+			assert(false && "ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ã®ç”Ÿæˆã«å¤±æ•—");
+		}
+	}
+
+	return success;
+}
+
+[[nodiscard]] ID3D12RootSignature* root_signature::get() const noexcept
+{
+	if (!rootSignature_)
+	{
+		assert(false && "ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ãŒç”Ÿæˆã•ã‚Œã¦ã„ã¾ã›ã‚“");
+	}
+
+	return rootSignature_.Get();
 }

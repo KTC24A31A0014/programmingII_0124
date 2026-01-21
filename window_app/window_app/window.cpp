@@ -1,7 +1,6 @@
-//ƒEƒBƒ“ƒhƒE§ŒäƒNƒ‰ƒX‚ÌÀ‘•
+//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦åˆ¶å¾¡ã‚¯ãƒ©ã‚¹ã®å®Ÿè£…
 #include "window.h"
-
-using namespace std;
+#include "input.h"
 
 namespace
 {
@@ -17,9 +16,9 @@ namespace
 	}
 }
 
-[[nodiscard]] HRESULT window::create(HINSTANCE instance, int width, int height, string_view name) noexcept
+[[nodiscard]] HRESULT window::create(HINSTANCE instance, int width, int height, std::string_view name) noexcept
 {
-	//ƒEƒBƒ“ƒhƒE‚Ì’è‹`
+	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®å®šç¾©
 	WNDCLASS wc{};
 	wc.lpfnWndProc	 = WindowProc;
 	wc.hInstance	 = instance;
@@ -27,10 +26,10 @@ namespace
 	wc.hCursor		 = LoadCursor(nullptr, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 
-	//ƒEƒBƒ“ƒhƒEƒNƒ‰ƒX‚Ì“o˜^
+	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹ã®ç™»éŒ²
 	RegisterClass(&wc);
 
-	//ƒEƒBƒ“ƒhƒE‚Ìì¬
+	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä½œæˆ
 	handle_ = CreateWindow(wc.lpszClassName, wc.lpszClassName, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, width, height, nullptr, nullptr, instance, nullptr);
 
 	if (!handle_)
@@ -38,13 +37,13 @@ namespace
 		return E_FAIL;
 	}
 
-	//ƒEƒBƒ“ƒhƒE‚Ì•\¦
+	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®è¡¨ç¤º
 	ShowWindow(handle_, SW_SHOW);
 
-	//ƒEƒBƒ“ƒhƒE‚ÌXV
+	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®æ›´æ–°
 	UpdateWindow(handle_);
 
-	//ƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY•Û‘¶
+	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚µã‚¤ã‚ºä¿å­˜
 	width_	= width;
 	height_ = height;
 
@@ -58,12 +57,20 @@ namespace
 	{
 		if (msg.message == WM_QUIT)
 		{
-			return false;	//WM_QUITƒƒbƒZ[ƒW‚ª—ˆ‚½‚çƒ‹[ƒv‚ğ”²‚¯‚é
+			return false;	//WM_QUITãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒæ¥ãŸã‚‰ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã‚‹
 		}
 
-		//ƒƒbƒZ[ƒWˆ— 
+		//ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡¦ç† 
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
+
+		//ã‚­ãƒ¼æƒ…å ±ã®å–å¾—
+		static byte keyState[256]{};
+		if (GetKeyboardState(keyState))
+		{
+			//ã‚­ãƒ¼æƒ…å ±å–å¾—ã«æˆåŠŸã—ãŸã‚‰ã€input ã‚¯ãƒ©ã‚¹ã«æƒ…å ±ã‚’æ¸¡ã™
+			input::instance().updateKeyState(keyState);
+		}
 	}
 
 	return true;
@@ -74,7 +81,7 @@ namespace
 	return handle_;
 }
 
-[[nodiscard]] pair<int, int> window::size() const noexcept
+[[nodiscard]] std::pair<int, int> window::size() const noexcept
 {
 	return { width_, height_ };
 }

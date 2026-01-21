@@ -7,7 +7,7 @@
 
 device::~device()
 {
-	//ƒfƒoƒCƒX‚Ì‰ğ•ú
+	//ãƒ‡ãƒã‚¤ã‚¹ã®è§£æ”¾
 	if (device_)
 	{
 		device_->Release();
@@ -15,13 +15,20 @@ device::~device()
 	}
 }
 
-[[nodiscard]] bool device::create(const DXGI& dxgi) noexcept
+[[nodiscard]] bool device::create() noexcept
 {
-	//ƒfƒoƒCƒXì¬
-	const auto hr = D3D12CreateDevice(dxgi.displayAdapter(), D3D_FEATURE_LEVEL_12_0, IID_PPV_ARGS(&device_));
+	//DXGIã®ä½œæˆ
+	if (!dxgiInstance_.setDisplayAdapter())
+	{
+		assert(false && "DXGIã®ã‚¢ãƒ€ãƒ—ã‚¿èªå®šã«å¤±æ•—ã—ã¾ã—ãŸ");
+		return false;
+	}
+
+	//ãƒ‡ãƒã‚¤ã‚¹ä½œæˆ
+	const auto hr = D3D12CreateDevice(dxgiInstance_.displayAdapter(), D3D_FEATURE_LEVEL_12_0, IID_PPV_ARGS(&device_));
 	if (FAILED(hr))
 	{
-		assert(false && "ƒfƒoƒCƒX‚Ìì¬‚É¸”s");
+		assert(false && "ãƒ‡ãƒã‚¤ã‚¹ã®ä½œæˆã«å¤±æ•—");
 		return false;
 	}
 
@@ -32,8 +39,13 @@ device::~device()
 {
 	if (!device_)
 	{
-		assert(false && "ƒfƒoƒCƒX‚ª–¢ì¬‚Å‚·");
+		assert(false && "ãƒ‡ãƒã‚¤ã‚¹ãŒæœªä½œæˆã§ã™");
 	}
 
-	return device_;
+	return device_.Get();
+}
+
+[[nodiscard]] const DXGI& device::dxgi() const noexcept
+{
+	return dxgiInstance_;
 }

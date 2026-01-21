@@ -11,7 +11,7 @@ using namespace std;
 
 shader::~shader()
 {
-	//’¸“_ƒVƒF[ƒ_‚Ì‰ğ•ú
+	//é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ã®è§£æ”¾
 	if (vertexShader_)
 	{
 		vertexShader_->Release();
@@ -25,29 +25,29 @@ shader::~shader()
 	}
 }
 
-[[nodiscard]] bool shader::create(const device& device)
+[[nodiscard]] bool shader::create() noexcept
 {
-	//ƒVƒF[ƒ_‚ğ“Ç‚İ‚İAƒRƒ“ƒpƒCƒ‹‚µ‚Ä¶¬‚·‚é
+	//ã‚·ã‚§ãƒ¼ãƒ€ã‚’èª­ã¿è¾¼ã¿ã€ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã—ã¦ç”Ÿæˆã™ã‚‹
 
-	//ƒVƒF[ƒ_ƒtƒ@ƒCƒ‹‚ÌƒpƒX
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ã‚¹
 	const string filePath = "/shader.hlsl";
 	const wstring temp = wstring(filePath.begin(), filePath.end());
 
-	//ƒVƒF[ƒ_‚ÌƒRƒ“ƒpƒCƒ‹ƒGƒ‰[‚È‚Ç‚ª‚í‚©‚é‚æ‚¤‚É‚·‚é
+	//ã‚·ã‚§ãƒ¼ãƒ€ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã‚¨ãƒ©ãƒ¼ãªã©ãŒã‚ã‹ã‚‹ã‚ˆã†ã«ã™ã‚‹
 	ID3DBlob* error{};
 
 	auto res = D3DCompileFromFile(temp.data(), nullptr, nullptr, "vs", "vs_5_0", D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 0, &vertexShader_, &error);
 	if (FAILED(res))
 	{
 		char* p = static_cast<char*>(error->GetBufferPointer());
-		assert(false && "’¸“_ƒVƒF[ƒ_‚ÌƒRƒ“ƒpƒCƒ‹‚É¸”s");
+		assert(false && "é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã«å¤±æ•—");
 	}
 
 	res = D3DCompileFromFile(temp.data(), nullptr, nullptr, "ps", "ps_5_0", D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 0, &pixelShader_, &error);
 	if (FAILED(res))
 	{
 		char* p = static_cast<char*>(error->GetBufferPointer());
-		assert(false && "ƒsƒNƒZƒ‹ƒVƒF[ƒ_‚ÌƒRƒ“ƒpƒCƒ‹‚É¸”s");
+		assert(false && "ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã«å¤±æ•—");
 	}
 
 	if (error)
@@ -62,18 +62,18 @@ shader::~shader()
 {
 	if (!vertexShader_)
 	{
-		assert(false && "’¸“_ƒVƒF[ƒ_‚ª–¢ì¬‚Å‚·");
+		assert(false && "é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãŒæœªä½œæˆã§ã™");
 	}
 
-	return vertexShader_;
+	return vertexShader_.Get();
 }
 
 [[nodiscard]] ID3DBlob* shader::pixelShader() const noexcept
 {
 	if (!pixelShader_)
 	{
-		assert(false && "ƒsƒNƒZƒ‹ƒVƒF[ƒ_‚ª–¢ì¬‚Å‚·");
+		assert(false && "ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãŒæœªä½œæˆã§ã™");
 	}
 
-	return pixelShader_;
+	return pixelShader_.Get();
 }

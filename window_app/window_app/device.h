@@ -1,4 +1,4 @@
-//デバイスクラス
+//繝�繝舌う繧ｹ繧ｯ繝ｩ繧ｹ
 
 #pragma once
 
@@ -7,6 +7,7 @@
 #include <d3d12.h>
 #include <wrl/client.h>
 
+#include "util.h"
 
 class device final
 {
@@ -19,7 +20,7 @@ class device final
 
 		[[nodiscard]] bool create() noexcept;
 
-		[[nodiscard]] ID3D12Device& get() const noexcept;
+		[[nodiscard]] ID3D12Device* get() const noexcept;
 
 		[[nodiscard]] const DXGI& dxgi() const noexcept;
 
@@ -27,11 +28,11 @@ class device final
 		device() = default;
 		~device() = default;
 
-		device(const device& r) = delete;
-		device& operator = (const device& r) = delete;
-		device(device&& r) = delete;
-		device& operator = (device&& r) = delete;
+		device(const device& r)			   = delete;
+		device& operator=(const device& r) = delete;
+		device(device&& r)				   = delete;
+		device& operator = (device&& r)	   = delete;
 
-		DXGI dxgiInstance_{};							//DXGI インスタンス
-		Microsoft::WRL::ComPtr<ID3D12Device> device_{};	//デバイス
+		DXGI dxgiInstance_{};							//DXGI 繧､繝ｳ繧ｹ繧ｿ繝ｳ繧ｹ
+		Microsoft::WRL::ComPtr<ID3D12Device> device_{};	//繝�繝舌う繧ｹ
 };
