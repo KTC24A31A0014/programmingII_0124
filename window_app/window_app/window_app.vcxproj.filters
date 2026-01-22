@@ -58,6 +58,9 @@
     <ClInclude Include="descriptor_heap.h">
       <Filter>directx</Filter>
     </ClInclude>
+    <ClInclude Include="pipline_state_object.h">
+      <Filter>directx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="window.cpp">
@@ -97,6 +100,9 @@
       <Filter>directx</Filter>
     </ClCompile>
     <ClCompile Include="descriptor_heap.cpp">
+      <Filter>directx</Filter>
+    </ClCompile>
+    <ClCompile Include="pipline_state_object.cpp">
       <Filter>directx</Filter>
     </ClCompile>
   </ItemGroup>
