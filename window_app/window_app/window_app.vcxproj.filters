@@ -16,6 +16,9 @@
     <Filter Include="draw_resorce">
       <UniqueIdentifier>{4a68afb4-96cf-4e70-8d39-1291dd271f90}</UniqueIdentifier>
     </Filter>
+    <Filter Include="object">
+      <UniqueIdentifier>{49c0faf0-8faa-40c7-be9b-65f7e61ddbff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="window.h">
@@ -61,6 +64,21 @@
     <ClInclude Include="pipline_state_object.h">
       <Filter>directx</Filter>
     </ClInclude>
+    <ClInclude Include="depth_buffer.h">
+      <Filter>directx</Filter>
+    </ClInclude>
+    <ClInclude Include="render_target.h">
+      <Filter>directx</Filter>
+    </ClInclude>
+    <ClInclude Include="quad_polygon.h">
+      <Filter>draw_resorce</Filter>
+    </ClInclude>
+    <ClInclude Include="shape.h">
+      <Filter>draw_resorce</Filter>
+    </ClInclude>
+    <ClInclude Include="triangle_polygon.h">
+      <Filter>draw_resorce</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="window.cpp">
@@ -104,6 +122,21 @@
     </ClCompile>
     <ClCompile Include="pipline_state_object.cpp">
       <Filter>directx</Filter>
+    </ClCompile>
+    <ClCompile Include="depth_buffer.cpp">
+      <Filter>directx</Filter>
+    </ClCompile>
+    <ClCompile Include="render_target.cpp">
+      <Filter>directx</Filter>
+    </ClCompile>
+    <ClCompile Include="quad_polygon.cpp">
+      <Filter>draw_resorce</Filter>
+    </ClCompile>
+    <ClCompile Include="shape.cpp">
+      <Filter>draw_resorce</Filter>
+    </ClCompile>
+    <ClCompile Include="triangle_polygon.cpp">
+      <Filter>draw_resorce</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
