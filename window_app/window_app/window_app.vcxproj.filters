@@ -79,6 +79,30 @@
     <ClInclude Include="triangle_polygon.h">
       <Filter>draw_resorce</Filter>
     </ClInclude>
+    <ClInclude Include="object.h">
+      <Filter>object</Filter>
+    </ClInclude>
+    <ClInclude Include="game_object.h">
+      <Filter>object</Filter>
+    </ClInclude>
+    <ClInclude Include="shape_container.h">
+      <Filter>draw_resorce</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>object</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>object</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>object</Filter>
+    </ClInclude>
+    <ClInclude Include="bullet.h">
+      <Filter>object</Filter>
+    </ClInclude>
+    <ClInclude Include="game_object_manager.h">
+      <Filter>object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="window.cpp">
@@ -137,6 +161,30 @@
     </ClCompile>
     <ClCompile Include="triangle_polygon.cpp">
       <Filter>draw_resorce</Filter>
+    </ClCompile>
+    <ClCompile Include="object.cpp">
+      <Filter>object</Filter>
+    </ClCompile>
+    <ClCompile Include="game_object.cpp">
+      <Filter>object</Filter>
+    </ClCompile>
+    <ClCompile Include="shape_container.cpp">
+      <Filter>draw_resorce</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>object</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>object</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>object</Filter>
+    </ClCompile>
+    <ClCompile Include="bullet.cpp">
+      <Filter>object</Filter>
+    </ClCompile>
+    <ClCompile Include="game_object_manager.cpp">
+      <Filter>object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
