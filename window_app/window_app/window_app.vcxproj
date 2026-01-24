@@ -172,6 +172,7 @@
     <ClCompile Include="device.cpp" />
     <ClCompile Include="DXGI.cpp" />
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="entry.cpp" />
     <ClCompile Include="fence.cpp" />
     <ClCompile Include="game_object.cpp" />
     <ClCompile Include="game_object_manager.cpp" />

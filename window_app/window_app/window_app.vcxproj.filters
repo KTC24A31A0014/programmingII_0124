@@ -186,6 +186,9 @@
     <ClCompile Include="game_object_manager.cpp">
       <Filter>object</Filter>
     </ClCompile>
+    <ClCompile Include="entry.cpp">
+      <Filter>entry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader.hlsl">
